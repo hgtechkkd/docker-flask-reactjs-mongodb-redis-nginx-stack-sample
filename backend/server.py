@@ -11,7 +11,7 @@ dburl = os.environ.get("MONGOURI","mongodb://mongodbserver:27017/")
 # dburl = f""
 mongo = pymongo.MongoClient(dburl)
 db = mongo["test"]
-coll = db["anime"]
+coll = db["samples"]
 
 app = Flask(__name__)
 cors = CORS(app)
