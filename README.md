@@ -9,7 +9,7 @@ This can be run with load balancing by using --scale option while running with d
 
 1. Install Docker (for windows optionally install Docker Desktop)
 
-2. gh repo clone hgtechkkd/docker-flask-reactjs-mongodb-redis-nginx-stack-sample
+2. <code>gh repo clone hgtechkkd/docker-flask-reactjs-mongodb-redis-nginx-stack-sample</code>
 
 3. run the following command:
    <code> docker-compose up -d --build --scale backend=3 </code>
