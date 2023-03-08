@@ -1,4 +1,4 @@
-# flask + reactjs + mongodb + redis + nginx = ♥
+# flask + reactjs + mongodb + redis + nginx
 
 This is a sample flask-react-mongo application stack with docker files and docker compose.
 
