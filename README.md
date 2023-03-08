@@ -18,3 +18,5 @@ This can be run with load balancing by using --scale option while running with d
 4. Open Github Desktop and check stack status.
    or run the following command:
    <code>docker ps</code>
+
+5. Now place the flask app in backend folder, and reactjs app in frontend folder. To dockerize SNAP. Connection strings in code/env need to be updated before running docker compose.
