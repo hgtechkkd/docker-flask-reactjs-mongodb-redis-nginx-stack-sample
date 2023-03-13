@@ -45,6 +45,13 @@ services:
           - E:\docker\volume_backups\redis:/bitnami
         ports:
           - "7000:7000"
-
+    s3server:
+      build:
+          context: .
+          dockerfile: ./docker/services/Dockerfile
+      # volumes:
+      #       - .:/app
+      env_file:
+            - s3server.env
 volumes:
     static_volume: {}
