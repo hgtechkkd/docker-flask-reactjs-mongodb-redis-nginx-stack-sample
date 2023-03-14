@@ -6,12 +6,13 @@ from flask_session import Session
 import functools
 import redis
 from flask_cors import CORS, cross_origin
+import logging
 
 dburl = os.environ.get("MONGOURI","mongodb://mongodbserver:27017/")
 # dburl = f""
 mongo = pymongo.MongoClient(dburl)
 db = mongo["test"]
-coll = db["samples"]
+coll = db["anime"]
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -50,7 +51,7 @@ def index():
 @app.route("/api/search/<string:term>")
 # @login_required
 def search(term):
-    print(term)
+    logging.info(term)
     res = coll.find({"title":{"$regex":term, "$options":'i'}},{"_id":0}).limit(10)
     alist = list(res)
     message = ""
@@ -102,6 +103,15 @@ def logout():
 @cross_origin()
 def api_id():
     hname = { "hostname" : socket.gethostname() }
+    return jsonify(hname)
+
+
+@app.route("/api/files")
+@cross_origin()
+def filelist():
+    res = db["files"].find({},{"_id":0}).limit(10)
+    alist = list(res)
+    hname = { "hostname" : socket.gethostname() , "files": alist}
     return jsonify(hname)
 
 if __name__=="__main__":

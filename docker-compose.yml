@@ -44,25 +44,39 @@ services:
     s3server:
       build:
           context: .
-          dockerfile: ./docker/services/Dockerfile
+          dockerfile: ./docker/services/s3/Dockerfile
       env_file:
-            - s3server.env
+            - services.env
+      environment:
+          - PYTHONUNBUFFERED=0
+      # volumes:
+      #     - E:\docker\volume_backups\s3:/data/files
     
-    s3fs:
-      privileged: true
-      image: efrecon/s3fs:1.90
-      restart: unless-stopped
-      env_file: s3server.env
+    autoscanserver:
+      build:
+          context: .
+          dockerfile: ./docker/services/autoscan/Dockerfile
+      env_file:
+            - services.env
       volumes:
-        - E:\docker\volume_backups\s3data:/opt/s3fs/bucket:shared
+          - E:\docker\volume_backups\nimbleocrfiles:/data/files
+      environment:
+          - PYTHONUNBUFFERED=0
+    # s3fs:
+    #   privileged: true
+    #   image: efrecon/s3fs:1.90
+    #   restart: unless-stopped
+    #   env_file: s3server.env
+    #   volumes:
+    #     - E:\docker\volume_backups\s3data:/opt/s3fs/bucket:shared
 
-    s3fs-test:
-      image: bash:latest
-      restart: unless-stopped
-      depends_on:
-        - s3fs
-      command: sleep infinity
-      volumes:
-        - E:\docker\volume_backups\s3data:/data:shared
+    # s3fs-test:
+    #   image: bash:latest
+    #   restart: unless-stopped
+    #   depends_on:
+    #     - s3fs
+    #   command: sleep infinity
+    #   volumes:
+    #     - E:\docker\volume_backups\s3data:/data:shared
 volumes:
     static_volume: {}
